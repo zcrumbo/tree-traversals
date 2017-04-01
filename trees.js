@@ -1,7 +1,6 @@
 function NewNode (value){
   this.val = value;
   this.child = ['',''];
-  //return this;
 }
 
 function NewTree (baseValue){
@@ -27,25 +26,37 @@ myTree.child[1].child[0].child[1] = new NewNode(13);
 myTree.child[1].child[1].child[0] = new NewNode(14);
 myTree.child[1].child[1].child[1] = new NewNode(15);
 
-// function inOrder(node){
-//   let left = node.child[0];
-//   function _checkLeft(left){
-//     console.log(left);
-//     if(!_checkLeft(left.child[0])) return;
-//   }
-// }
 
 
-function inOrder(node) {
-  if (node.child[0]) {
-    console.log(node.child[0].val);
-    inOrder(node.child[0]);
-  }
-  if (node.child[1]) {
-    console.log(node.child[1].val);
-    inOrder(node.child[1]);
+function traverseTree(fn, tree){
+  console.log(`***************************${fn.name}***************************`);
+  fn(tree);
+
+}
+function dlr(node) {
+  if(node){
+    console.log(node.val);
+    dlr(node.child[0]);
+    dlr(node.child[1]);
   }
 
 }
 
-inOrder(myTree);
+function lrd(node) {
+  if(node){
+    lrd(node.child[0]);
+    lrd(node.child[1]);
+    console.log(node.val);
+  }
+}
+function ldr(node) {
+  if(node){
+    ldr(node.child[0]);
+    console.log(node.val);
+    ldr(node.child[1]);
+  }
+}
+
+traverseTree(dlr, myTree);
+traverseTree(ldr, myTree);
+traverseTree(lrd, myTree);
